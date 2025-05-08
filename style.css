@@ -48,9 +48,10 @@ body {
   }
   
   .cell.disabled {
-    background-color: #111;
-    cursor: not-allowed;
+    background-color: #222; /* Keep your black theme */
+    cursor: default; /* or use 'pointer' or 'crosshair' if preferred */
   }
+  
   
   .cell.x {
     color: white;
@@ -83,6 +84,38 @@ body {
   }
   
   .mini-board.active {
-    border-color: hotpink;
+    border-color: rgb(240, 220, 42);
   }
+
+  .winner-mark, .ultimate-winner-mark {
+    font-size: 5vw; /* Responsive large size */
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+  }
+  
+  .winner-X {
+    background-color: red;
+  }
+  
+  .winner-O {
+    background-color: blue;
+  }
+  
+  /* Ensure mini and ultimate boards allow children to overlay */
+  .mini-board, .ultimate-board {
+    position: relative;
+  }
+  
+
   

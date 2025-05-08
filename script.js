@@ -13,7 +13,6 @@ const structure = Array(9).fill(null).map(() =>
 const miniWinners = Array(9).fill(null).map(() => Array(9).fill(""));
 const ultimateWinners = Array(9).fill("");
 
-// Initialize the game
 function createGame() {
   for (let u = 0; u < 9; u++) {
     const ultimate = document.createElement("div");
@@ -44,16 +43,15 @@ function createGame() {
 function handleMove(u, m, c, cellEl) {
   if (ultimateWinners[u] || miniWinners[u][m] || structure[u][m][c] !== "") return;
 
-  // Enforce play only in active ultimate board
-  if (u !== activeUltimate) return;
+  // Enforce play only in active ultimate board (or anywhere if unlocked)
+  if (activeUltimate !== null && u !== activeUltimate) return;
 
-  // Enforce play only in active mini-board if one is locked
+  // Enforce play only in active mini-board if locked
   if (activeMini !== null && m !== activeMini) return;
 
   structure[u][m][c] = currentPlayer;
   cellEl.textContent = currentPlayer;
-  cellEl.classList.add(currentPlayer.toLowerCase()); // Adds .x or .o for styling
-
+  cellEl.classList.add(currentPlayer.toLowerCase()); // Adds .x or .o class
 
   // Check mini-board win
   const miniWinner = checkWinner(structure[u][m]);
@@ -61,7 +59,7 @@ function handleMove(u, m, c, cellEl) {
     miniWinners[u][m] = miniWinner;
     markBoardWinner(u, m, miniWinner);
 
-    // Check for ultimate win
+    // Check ultimate board win
     const ultimateWinner = checkWinner(miniWinners[u]);
     if (ultimateWinner) {
       ultimateWinners[u] = ultimateWinner;
@@ -75,19 +73,22 @@ function handleMove(u, m, c, cellEl) {
       }
     }
 
-    // Move to new ultimate board based on position of won mini-board
-    activeUltimate = m;
+    // Move to new ultimate board based on mini-board index
+    const targetUltimate = m;
+    if (ultimateWinners[targetUltimate]) {
+      activeUltimate = null; // Free move anywhere
+    } else {
+      activeUltimate = targetUltimate;
+    }
+
     activeMini = null;
   } else {
-    // Still same ultimate board, next mini-board is based on cell clicked
-    activeMini = c;
-
-    // If mini-board is full or won, unlock
-    if (
-      miniWinners[u][activeMini] ||
-      !structure[u][activeMini].includes("")
-    ) {
+    // No mini-board win: move within same ultimate board
+    const nextMini = c;
+    if (miniWinners[u][nextMini] || !structure[u][nextMini].includes("")) {
       activeMini = null;
+    } else {
+      activeMini = nextMini;
     }
   }
 
@@ -104,30 +105,61 @@ function highlightActiveBoard() {
     board.classList.remove("active")
   );
 
-  const ultimate = document.querySelectorAll(".ultimate-board")[activeUltimate];
-  if (ultimate) {
-    ultimate.classList.add("active");
-    if (activeMini !== null) {
-      const mini = ultimate.children[activeMini];
-      if (mini) mini.classList.add("active");
+  if (activeUltimate !== null) {
+    const ultimate = document.querySelectorAll(".ultimate-board")[activeUltimate];
+    if (ultimate) {
+      ultimate.classList.add("active");
+      if (activeMini !== null) {
+        const mini = ultimate.children[activeMini];
+        if (mini) mini.classList.add("active");
+      }
     }
+  } else {
+    // Highlight all ultimate boards if free move
+    document.querySelectorAll(".ultimate-board").forEach(board =>
+      board.classList.add("active")
+    );
   }
 }
 
 function markBoardWinner(u, m, winner) {
   const mini = document.querySelectorAll(".ultimate-board")[u].children[m];
+
+  // Clear all cells inside the mini-board
+  mini.innerHTML = "";
+
+  // Add a large X or O in the center
+  const winnerMark = document.createElement("div");
+  winnerMark.classList.add("winner-mark", `winner-${winner}`);
+  winnerMark.textContent = winner;
+  mini.appendChild(winnerMark);
+
   mini.classList.add(`won-${winner}`);
-  Array.from(mini.children).forEach(cell => cell.classList.add("disabled"));
 }
 
 function markUltimateWinner(u, winner) {
   const ultimate = document.querySelectorAll(".ultimate-board")[u];
-  ultimate.classList.add(`won-${winner}`);
-  Array.from(ultimate.querySelectorAll(".cell")).forEach(cell => cell.classList.add("disabled"));
+
+  // Clear all mini-boards inside this ultimate board
+  ultimate.innerHTML = "";
+
+  // Create the large winner mark
+  const winnerMark = document.createElement("div");
+  winnerMark.classList.add("ultimate-winner-mark", `winner-${winner}`);
+  winnerMark.textContent = winner;
+
+  ultimate.appendChild(winnerMark);
+
+  // Optionally disable all cells globally
+  Array.from(document.querySelectorAll(".cell")).forEach(cell =>
+    cell.classList.add("disabled")
+  );
 }
 
 function disableAll() {
-  document.querySelectorAll(".cell").forEach(cell => cell.classList.add("disabled"));
+  document.querySelectorAll(".cell").forEach(cell =>
+    cell.classList.add("disabled")
+  );
 }
 
 function checkWinner(board) {
@@ -143,6 +175,5 @@ function checkWinner(board) {
   }
   return null;
 }
-
 
 createGame();
