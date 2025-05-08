@@ -98,29 +98,35 @@ function handleMove(u, m, c, cellEl) {
 }
 
 function highlightActiveBoard() {
-  document.querySelectorAll(".ultimate-board").forEach(board =>
-    board.classList.remove("active")
-  );
-  document.querySelectorAll(".mini-board").forEach(board =>
-    board.classList.remove("active")
-  );
-
-  if (activeUltimate !== null) {
-    const ultimate = document.querySelectorAll(".ultimate-board")[activeUltimate];
-    if (ultimate) {
-      ultimate.classList.add("active");
-      if (activeMini !== null) {
-        const mini = ultimate.children[activeMini];
-        if (mini) mini.classList.add("active");
-      }
-    }
-  } else {
-    // Highlight all ultimate boards if free move
+    // Remove 'active' class from all ultimate boards and mini boards
     document.querySelectorAll(".ultimate-board").forEach(board =>
-      board.classList.add("active")
+      board.classList.remove("active")
     );
+    document.querySelectorAll(".mini-board").forEach(board =>
+      board.classList.remove("active")
+    );
+  
+    // If we are not in free-move mode (activeUltimate is not null)
+    if (activeUltimate !== null) {
+      const ultimate = document.querySelectorAll(".ultimate-board")[activeUltimate];
+      if (ultimate) {
+        ultimate.classList.add("active");
+  
+        // If we're in a mini-board (activeMini is not null), highlight it
+        if (activeMini !== null) {
+          const mini = ultimate.children[activeMini];
+          if (mini) mini.classList.add("active");
+        }
+      }
+    } else {
+      // Free move mode, highlight all ultimate boards
+      document.querySelectorAll(".ultimate-board").forEach(board =>
+        board.classList.add("active")
+      );
+    }
   }
-}
+  
+  
 
 function markBoardWinner(u, m, winner) {
   const mini = document.querySelectorAll(".ultimate-board")[u].children[m];
