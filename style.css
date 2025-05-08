@@ -1,0 +1,88 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background: #000;
+    color: #fff;
+  }
+  
+  h1 {
+    margin-top: 10px;
+    color: #fff;
+  }
+  
+  #main-board {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 10px;
+    margin: 20px auto;
+    width: fit-content;
+  }
+  
+  .ultimate-board {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 5px;
+    border: 3px solid cyan;
+    padding: 5px;
+  }
+  
+  .mini-board {
+    display: grid;
+    grid-template-columns: repeat(3, 30px);
+    gap: 2px;
+    border: 2px solid cyan;
+    padding: 2px;
+  }
+  
+  .cell {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    background: #000;
+    border: 1px solid cyan;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+  }
+  
+  .cell.disabled {
+    background-color: #111;
+    cursor: not-allowed;
+  }
+  
+  .cell.x {
+    color: white;
+    background-color: red;
+  }
+  
+  .cell.o {
+    color: white;
+    background-color: blue;
+  }
+  
+  .mini-board.won-X .cell {
+    background-color: #400; /* Dark red */
+  }
+  
+  .mini-board.won-O .cell {
+    background-color: #004; /* Dark blue */
+  }
+  
+  .ultimate-board.won-X .cell {
+    background-color: #800; /* Stronger red */
+  }
+  
+  .ultimate-board.won-O .cell {
+    background-color: #008; /* Stronger blue */
+  }
+  
+  .ultimate-board.active {
+    border-color: hotpink;
+  }
+  
+  .mini-board.active {
+    border-color: hotpink;
+  }
+  
