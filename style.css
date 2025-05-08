@@ -43,9 +43,19 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     color: white;
   }
+
+  .cell {
+    cursor: default; /* default state */
+  }
+  
+  /* Only show pointer when the board is active and the cell is empty */
+  .ultimate-board.active .mini-board.active .cell:not(.disabled):empty,
+  .ultimate-board.active .cell:not(.disabled):empty {
+    cursor: pointer;
+  }
+  
   
   .cell.disabled {
     background-color: #222; /* Keep your black theme */

@@ -2,7 +2,7 @@ const mainBoard = document.getElementById("main-board");
 const statusText = document.getElementById("status");
 
 let currentPlayer = "X";
-let activeUltimate = 4; // Start from center ultimate board
+let activeUltimate = null; // Start from center ultimate board
 let activeMini = null;
 
 const structure = Array(9).fill(null).map(() =>
@@ -43,6 +43,16 @@ function createGame() {
 function handleMove(u, m, c, cellEl) {
   if (ultimateWinners[u] || miniWinners[u][m] || structure[u][m][c] !== "") return;
 
+  if (activeUltimate === null) {
+    // Lock into whichever ultimate board the player clicked first
+    if (!ultimateWinners[u]) {
+      activeUltimate = u;
+      highlightActiveBoard(); // 🔧 Update highlight
+    } else {
+      return; // Don't allow clicking into a won ultimate board
+    }
+  }  
+
   // Enforce play only in active ultimate board (or anywhere if unlocked)
   if (activeUltimate !== null && u !== activeUltimate) return;
 
@@ -75,11 +85,16 @@ function handleMove(u, m, c, cellEl) {
 
     // Move to new ultimate board based on mini-board index
     const targetUltimate = m;
-    if (ultimateWinners[targetUltimate]) {
-      activeUltimate = null; // Free move anywhere
-    } else {
-      activeUltimate = targetUltimate;
-    }
+    if (!ultimateWinners[targetUltimate]) {
+        activeUltimate = targetUltimate;
+      } else {
+        // Free move: let them pick any *one* ultimate board on their next move
+        activeUltimate = null;
+      
+        // ✅ After free move, lock the ultimate board they chose
+        // (This happens on their next valid move)
+      }
+      
 
     activeMini = null;
   } else {
@@ -98,7 +113,7 @@ function handleMove(u, m, c, cellEl) {
 }
 
 function highlightActiveBoard() {
-    // Remove 'active' class from all ultimate boards and mini boards
+    // Remove 'active' class from all ultimate and mini boards
     document.querySelectorAll(".ultimate-board").forEach(board =>
       board.classList.remove("active")
     );
@@ -106,25 +121,39 @@ function highlightActiveBoard() {
       board.classList.remove("active")
     );
   
-    // If we are not in free-move mode (activeUltimate is not null)
+    // Not in free-move mode: only one active ultimate (and maybe mini) board
     if (activeUltimate !== null) {
       const ultimate = document.querySelectorAll(".ultimate-board")[activeUltimate];
       if (ultimate) {
         ultimate.classList.add("active");
   
-        // If we're in a mini-board (activeMini is not null), highlight it
         if (activeMini !== null) {
           const mini = ultimate.children[activeMini];
           if (mini) mini.classList.add("active");
+        } else {
+          // Highlight all un-won mini-boards in the active ultimate board
+          Array.from(ultimate.children).forEach((mini, index) => {
+            if (!miniWinners[activeUltimate][index]) {
+              mini.classList.add("active");
+            }
+          });
         }
       }
     } else {
-      // Free move mode, highlight all ultimate boards
-      document.querySelectorAll(".ultimate-board").forEach(board =>
-        board.classList.add("active")
-      );
+      // Free move: all ultimate boards and their un-won mini-boards are active
+      document.querySelectorAll(".ultimate-board").forEach((board, u) => {
+        if (!ultimateWinners[u]) {
+          board.classList.add("active");
+          Array.from(board.children).forEach((mini, m) => {
+            if (!miniWinners[u][m]) {
+              mini.classList.add("active");
+            }
+          });
+        }
+      });
     }
   }
+  
   
   
 
