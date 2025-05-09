@@ -6,9 +6,32 @@ body {
   }
   
   h1 {
-    margin-top: 10px;
-    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3em;
+    letter-spacing: 2px;
+    color: cyan;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    margin-top: 20px;
   }
+  
+  #status {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2em;
+    margin-top: 10px;
+    color: white;
+    text-shadow: 0 0 5px #0ff;
+  }
+  
+  .player-x {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .player-o {
+    color: blue;
+    font-weight: bold;
+  }
+  
   
   #main-board {
     display: grid;

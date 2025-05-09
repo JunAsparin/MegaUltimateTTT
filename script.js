@@ -108,7 +108,7 @@ function handleMove(u, m, c, cellEl) {
   }
 
   currentPlayer = currentPlayer === "X" ? "O" : "X";
-  statusText.textContent = `Player ${currentPlayer}'s turn`;
+  statusText.innerHTML = `Player <span class="player-${currentPlayer.toLowerCase()}">${currentPlayer}</span>'s turn`;
   highlightActiveBoard();
 }
 
