@@ -1,45 +1,37 @@
+/* style.css */
 body {
-    font-family: sans-serif;
-    text-align: center;
-    background: #000;
-    color: #fff;
-  }
-  
-  h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 3em;
-    letter-spacing: 2px;
-    color: cyan;
-    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
-    margin-top: 20px;
-  }
-  
-  #status {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 2em;
-    margin-top: 10px;
-    color: white;
-    text-shadow: 0 0 5px #0ff;
-  }
-  
-  .player-x {
-    color: red;
-    font-weight: bold;
-  }
-  
-  .player-o {
-    color: blue;
-    font-weight: bold;
-  }
-  
-  
-  #main-board {
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    gap: 10px;
-    margin: 20px auto;
-    width: fit-content;
-  }
+  font-family: 'Press Start 2P', sans-serif;
+  text-align: center;
+  background: #000;
+  color: #fff;
+}
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  margin-top: 10px;
+  color: cyan;
+}
+
+#status .turn-x {
+  color: red;
+}
+#status .turn-o {
+  color: blue;
+}
+
+/* Reuse your styles for boards and cells from the original CSS */
+
+#main-board {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 10px;
+  margin: 20px auto;
+  width: fit-content;
+}
+
+/* Style for the ultimate and mini boards, cells, etc. (similar to your previous CSS) */
+
   
   .ultimate-board {
     display: grid;
