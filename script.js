@@ -157,39 +157,33 @@ function highlightActiveBoard() {
   
   
 
-function markBoardWinner(u, m, winner) {
-  const mini = document.querySelectorAll(".ultimate-board")[u].children[m];
+  function markBoardWinner(u, m, winner) {
+    const mini = document.querySelectorAll(".ultimate-board")[u].children[m];
+  
+    // Don't clear the mini-board. Instead overlay a winner mark
+    const winnerMark = document.createElement("div");
+    winnerMark.classList.add("winner-mark", `winner-${winner}`);
+    winnerMark.textContent = winner;
+    mini.appendChild(winnerMark);
+  
+    mini.classList.add(`won-${winner}`);
+  }
+  
 
-  // Clear all cells inside the mini-board
-  mini.innerHTML = "";
-
-  // Add a large X or O in the center
-  const winnerMark = document.createElement("div");
-  winnerMark.classList.add("winner-mark", `winner-${winner}`);
-  winnerMark.textContent = winner;
-  mini.appendChild(winnerMark);
-
-  mini.classList.add(`won-${winner}`);
-}
-
-function markUltimateWinner(u, winner) {
-  const ultimate = document.querySelectorAll(".ultimate-board")[u];
-
-  // Clear all mini-boards inside this ultimate board
-  ultimate.innerHTML = "";
-
-  // Create the large winner mark
-  const winnerMark = document.createElement("div");
-  winnerMark.classList.add("ultimate-winner-mark", `winner-${winner}`);
-  winnerMark.textContent = winner;
-
-  ultimate.appendChild(winnerMark);
-
-  // Optionally disable all cells globally
-  Array.from(document.querySelectorAll(".cell")).forEach(cell =>
-    cell.classList.add("disabled")
-  );
-}
+  function markUltimateWinner(u, winner) {
+    const ultimate = document.querySelectorAll(".ultimate-board")[u];
+  
+    // Don't clear the mini-boards. Just overlay winner mark
+    const winnerMark = document.createElement("div");
+    winnerMark.classList.add("ultimate-winner-mark", `winner-${winner}`);
+    winnerMark.textContent = winner;
+    ultimate.appendChild(winnerMark);
+  
+    Array.from(document.querySelectorAll(".cell")).forEach(cell =>
+      cell.classList.add("disabled")
+    );
+  }
+  
 
 function disableAll() {
   document.querySelectorAll(".cell").forEach(cell =>
