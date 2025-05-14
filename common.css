@@ -1,0 +1,97 @@
+/* Fonts & Background */
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 3em;
+  color: cyan;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  margin-top: 20px;
+}
+
+/* Status text */
+#status {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2em;
+  margin: 10px auto;
+  color: white;
+  text-shadow: 0 0 5px #0ff;
+}
+
+/* Buttons */
+button, .button {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1em;
+  padding: 12px 25px;
+  margin: 10px;
+  border: 2px solid cyan;
+  background-color: transparent;
+  color: cyan;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+}
+
+button:hover, .button:hover {
+  background-color: cyan;
+  color: #000;
+}
+
+.turn-x {
+  color: red;
+}
+
+.turn-o {
+  color: blue;
+}
+
+.top-left,
+.top-right {
+  margin: 10px 20px;
+}
+
+.top-left {
+  float: left;
+}
+
+.top-right {
+  float: right;
+}
+
+
+/* Always fixed at the top-left corner */
+.home-button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  background: #f39c12;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.home-button:hover {
+  background: #f1c40f;
+}
+
+/* Fixed Reload Button for regular Tic-Tac-Toe */
+.reload-button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  background: #16a085;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.reload-button:hover {
+  background: #1abc9c;
+}
+

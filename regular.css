@@ -1,0 +1,180 @@
+/* General body styling */
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background: #000;
+  color: #fff;
+}
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3em;
+  letter-spacing: 2px;
+  color: cyan;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  margin-top: 20px;
+}
+
+#status {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2em;
+  margin-top: 10px;
+  color: white;
+  text-shadow: 0 0 5px #0ff;
+}
+
+.player-x {
+  color: red;
+  font-weight: bold;
+}
+
+.player-o {
+  color: blue;
+  font-weight: bold;
+}
+
+/* Grid for the main Tic-Tac-Toe board */
+#main-board {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 10px;
+  margin: 20px auto;
+  width: fit-content;
+}
+
+/* Styling for the cells in the game grid */
+.cell {
+  width: 90px;
+  height: 90px;
+  font-size: 40px;
+  background: #000;
+  border: 1px solid cyan;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: default;
+}
+
+/* Only show pointer when the cell is empty */
+.cell:not(.disabled):empty {
+  cursor: pointer;
+}
+
+/* Styling for when a cell is disabled (already clicked) */
+.cell.disabled {
+  background-color: #222; /* Keep your black theme */
+  cursor: default; /* or use 'pointer' or 'crosshair' if preferred */
+}
+
+/* Player X and O color coding */
+.cell.x {
+  color: white;
+  background-color: red;
+}
+
+.cell.o {
+  color: white;
+  background-color: blue;
+}
+
+/* Active board highlighting */
+.ultimate-board.active {
+  border-color: hotpink;
+}
+
+/* Highlighting mini-boards within the active ultimate board */
+.mini-board.active {
+  border-color: rgb(240, 220, 42);
+}
+
+/* Winning marks */
+.winner-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 5vw;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  color: white;
+  pointer-events: none;
+}
+
+.ultimate-winner-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 18vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 20;
+  color: white;
+  pointer-events: none;
+}
+
+.winner-X {
+  background-color: red;
+}
+
+.winner-O {
+  background-color: blue;
+}
+
+/* Ensure mini and ultimate boards allow children to overlay */
+.mini-board, .ultimate-board {
+  position: relative;
+}
+
+/* Menu screen styles */
+#menu-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+#menu-screen button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  margin: 10px;
+  background: cyan;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+#menu-screen h1 {
+  color: white;
+  text-shadow: 0 0 10px cyan;
+}
+
+
+/* Rainbow strobe effect for winning cells */
+@keyframes rainbow-strobe {
+  0% { background-color: red; }
+  10% { background-color: orange; }
+  20% { background-color: yellow; }
+  30% { background-color: green; }
+  40% { background-color: blue; }
+  50% { background-color: indigo; }
+  60% { background-color: violet; }
+  70% { background-color: blue; }
+  80% { background-color: green; }
+  90% { background-color: yellow; }
+  100% { background-color: red; }
+}
+
+/* Add this animation to the winning cells */
+.cell.winner {
+  animation: rainbow-strobe 1s linear infinite;
+}

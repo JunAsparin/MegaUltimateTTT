@@ -3,51 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <title>Ultra Ultimate Tic Tac Toe</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="common.css" />
+  
   <link rel="icon" href="images/ttt.png" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Press+Start+2P&display=swap" rel="stylesheet">
-
 </head>
 <body>
-  <h1>Ultra Ultimate Tic Tac Toe</h1>
-  <div id="status">Player <span class="turn-x">X</span>'s turn</div>
-  
-
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-analytics.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-  
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyCJPS_fUx6pWBPky94iqqDMC0vM_ZzGJiw",
-      authDomain: "ultraultimatettt.firebaseapp.com",
-      databaseURL: "https://ultraultimatettt-default-rtdb.firebaseio.com",
-      projectId: "ultraultimatettt",
-      storageBucket: "ultraultimatettt.firebasestorage.app",
-      messagingSenderId: "261959398039",
-      appId: "1:261959398039:web:b312aafc808d98ea522fd2",
-      measurementId: "G-SHBBZWE27L"
-    };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-  </script>
-
-
-  <div id="menu">
-    <button onclick="createRoom()">Create Room</button>
-    <input id="roomCodeInput" placeholder="Enter Code">
-    <button onclick="joinRoomFromInput()">Join Room</button>
+  <!-- Game Mode Selection Menu -->
+  <div id="menu-screen">
+    <h1>Choose Your Game</h1>
+    <button onclick="location.href='regular.html'">Regular Tic-Tac-Toe</button>
+    <button onclick="location.href='ultimate.html'">Ultimate Tic-Tac-Toe</button>
+    <button onclick="location.href='ultra.html'">Ultra Ultimate Tic-Tac-Toe</button>
   </div>
 
-  <div id="main-board"></div>
   
-  <script src="firebase.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>

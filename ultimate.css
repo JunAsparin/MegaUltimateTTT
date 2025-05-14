@@ -1,0 +1,198 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  background: #000;
+  color: #fff;
+}
+
+h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3em;
+  letter-spacing: 2px;
+  color: cyan;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  margin-top: 20px;
+}
+
+#status {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2em;
+  margin-top: 10px;
+  color: white;
+  text-shadow: 0 0 5px #0ff;
+}
+
+.player-x {
+  color: red;
+  font-weight: bold;
+}
+
+.player-o {
+  color: blue;
+  font-weight: bold;
+}
+
+#main-board {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 10px;
+  margin: 20px auto;
+  width: fit-content;
+  position:relative;
+}
+
+.mini-board {
+  display: grid;
+  grid-template-columns: repeat(3, 60px);
+  gap: 2px;
+  border: 3px solid cyan;
+  padding: 5px;
+  position: relative;
+}
+
+.mini-board.active {
+  border-color: yellow;
+}
+
+.cell {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  background: #000;
+  border: 1px solid cyan;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: default;
+}
+
+.mini-board.active .cell:not(.disabled):empty {
+  cursor: pointer;
+}
+
+.cell.disabled {
+  background-color: #222;
+}
+
+.cell.x {
+  color: white;
+  background-color: red;
+}
+
+.cell.o {
+  color: white;
+  background-color: blue;
+}
+
+.mini-board.won-X .cell {
+  background-color: #400;
+}
+
+.mini-board.won-O .cell {
+  background-color: #004;
+}
+
+.winner-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 4vw;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  color: white;
+  pointer-events: none;
+  text-shadow: 0 0 10px black;
+}
+
+.ultimate-winner-mark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 10vw;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);  /* LESS opaque */
+  z-index: 5;  /* LOWER z-index so rainbow still animates behind */
+  color: white;
+  pointer-events: none;
+  text-shadow: 0 0 20px black;
+  border-radius: 8px;
+}
+
+
+
+.winner-X {
+  background-color: red;
+}
+
+.winner-O {
+  background-color: blue;
+}
+
+/* Rainbow animation for full winning mini-boards ONLY */
+@keyframes rainbow-strobe {
+  0%   { background-color: red; }
+  14%  { background-color: orange; }
+  28%  { background-color: yellow; }
+  42%  { background-color: green; }
+  57%  { background-color: blue; }
+  71%  { background-color: indigo; }
+  85%  { background-color: violet; }
+  100% { background-color: red; }
+}
+
+/* Apply only to full mini-board background */
+.mini-board.rainbow-strobe {
+  animation: rainbow-strobe 1s infinite;
+}
+
+
+/* Fixed Home Button */
+.home-button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  background: #f39c12;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: center;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+}
+
+.home-button:hover {
+  background: #f1c40f;
+}
+
+/* Fixed Reload Button */
+.reload-button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  background: #16a085;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: center;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+}
+
+.reload-button:hover {
+  background: #1abc9c;
+}
