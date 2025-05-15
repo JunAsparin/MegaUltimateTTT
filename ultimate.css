@@ -121,8 +121,8 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.3);  /* LESS opaque */
-  z-index: 5;  /* LOWER z-index so rainbow still animates behind */
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 20;
   color: white;
   pointer-events: none;
   text-shadow: 0 0 20px black;
@@ -156,43 +156,3 @@ h1 {
   animation: rainbow-strobe 1s infinite;
 }
 
-
-/* Fixed Home Button */
-.home-button {
-  font-size: 1.5em;
-  padding: 10px 20px;
-  background: #f39c12;
-  color: black;
-  border: none;
-  cursor: pointer;
-  border-radius: 10px;
-  text-align: center;
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  z-index: 100;
-}
-
-.home-button:hover {
-  background: #f1c40f;
-}
-
-/* Fixed Reload Button */
-.reload-button {
-  font-size: 1.5em;
-  padding: 10px 20px;
-  background: #16a085;
-  color: black;
-  border: none;
-  cursor: pointer;
-  border-radius: 10px;
-  text-align: center;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 100;
-}
-
-.reload-button:hover {
-  background: #1abc9c;
-}

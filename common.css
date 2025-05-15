@@ -1,7 +1,131 @@
 /* Fonts & Background */
 body {
   font-family: 'Orbitron', sans-serif;
-  background-color: #000;
+  background-color: #0A0A0A;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Title */
+h1 {
+  font-size: 3.5em;
+  color: cyan;
+  text-shadow: 0 0 10px #00F0FF, 0 0 20px #FF00FF;
+  margin-top: 60px;
+  margin-bottom: 30px;
+}
+
+/* --- Only affect layout on menu screen --- */
+#menu-screen .button-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 60px 20px;
+  min-height: 60vh;
+  align-items: center;
+}
+
+#menu-screen button {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5em;
+  padding: 20px 40px;
+  min-width: 250px;
+  margin: 10px;
+  border: 3px solid rgb(255, 0, 212);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #0ff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 15px;
+  box-shadow: 0 0 10px #ff00ff88, 0 0 20px #00ffff66;
+}
+
+#menu-screen button:hover {
+  background-color: cyan;
+  color: #000;
+  box-shadow: 0 0 20px #0ff, 0 0 30px #ff00ff;
+}
+
+/* Status text */
+#status {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.2em;
+  margin: 10px auto;
+  color: #D0F0FF;
+  text-shadow: 0 0 5px #0ff;
+}
+
+.turn-x {
+  color: red;
+}
+
+.turn-o {
+  color: blue;
+}
+
+.top-left,
+.top-right {
+  margin: 10px 20px;
+}
+
+.top-left {
+  float: left;
+}
+
+.top-right {
+  float: right;
+}
+
+/* Home Button */
+.home-button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  background: #FF8C42;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.home-button:hover {
+  background: #FFB870;
+}
+
+/* Reload Button */
+.reload-button {
+  font-size: 1.5em;
+  padding: 10px 20px;
+  background: #00BFA6;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.reload-button:hover {
+  background: #26FFD7;
+}
+
+/* Background Canvas */
+#background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+
+
+/* Fonts & Background */
+body {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #0A0A0A;
   color: #fff;
   text-align: center;
   margin: 0;
@@ -11,7 +135,7 @@ body {
 h1 {
   font-size: 3em;
   color: cyan;
-  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  text-shadow: 0 0 10px #00F0FF, 0 0 20px #FF00FF;
   margin-top: 20px;
 }
 
@@ -20,7 +144,7 @@ h1 {
   font-family: 'Press Start 2P', cursive;
   font-size: 1.2em;
   margin: 10px auto;
-  color: white;
+  color: #D0F0FF;
   text-shadow: 0 0 5px #0ff;
 }
 
@@ -30,9 +154,9 @@ button, .button {
   font-size: 1.1em;
   padding: 12px 25px;
   margin: 10px;
-  border: 2px solid cyan;
+  border: 2px solid rgb(255, 0, 212);
   background-color: transparent;
-  color: cyan;
+  color: #0ff;
   cursor: pointer;
   transition: 0.3s;
   border-radius: 10px;
@@ -69,7 +193,7 @@ button:hover, .button:hover {
 .home-button {
   font-size: 1.5em;
   padding: 10px 20px;
-  background: #f39c12;
+  background: #FF8C42;
   color: black;
   border: none;
   cursor: pointer;
@@ -77,14 +201,14 @@ button:hover, .button:hover {
 }
 
 .home-button:hover {
-  background: #f1c40f;
+  background: #FFB870;
 }
 
 /* Fixed Reload Button for regular Tic-Tac-Toe */
 .reload-button {
   font-size: 1.5em;
   padding: 10px 20px;
-  background: #16a085;
+  background: #00BFA6;
   color: black;
   border: none;
   cursor: pointer;
@@ -92,6 +216,15 @@ button:hover, .button:hover {
 }
 
 .reload-button:hover {
-  background: #1abc9c;
+  background: #26FFD7;
 }
 
+#background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: black;
+}

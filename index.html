@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>Ultra Ultimate Tic Tac Toe</title>
   <link rel="stylesheet" href="common.css" />
-  
   <link rel="icon" href="images/ttt.png" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
@@ -12,11 +11,14 @@
   <!-- Game Mode Selection Menu -->
   <div id="menu-screen">
     <h1>Choose Your Game</h1>
-    <button onclick="location.href='regular.html'">Regular Tic-Tac-Toe</button>
-    <button onclick="location.href='ultimate.html'">Ultimate Tic-Tac-Toe</button>
-    <button onclick="location.href='ultra.html'">Ultra Ultimate Tic-Tac-Toe</button>
+    <div class="button-container">
+      <button onclick="location.href='regular.html'">Regular Tic-Tac-Toe</button>
+      <button onclick="location.href='ultimate.html'">Ultimate Tic-Tac-Toe</button>
+      <button onclick="location.href='ultra.html'">Ultra Ultimate Tic-Tac-Toe</button>
+    </div>
   </div>
 
-  
+  <canvas id="background-canvas"></canvas>
+  <script src="background.js"></script>
 </body>
 </html>

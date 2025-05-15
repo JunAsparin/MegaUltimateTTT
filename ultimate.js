@@ -138,22 +138,35 @@ function checkWinner(board) {
 
 function getWinningBoards(miniWinners) {
   const lines = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8]
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],     // rows
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],     // columns
+    [0, 4, 8], [2, 4, 6]                 // diagonals
   ];
 
   for (const [a, b, c] of lines) {
     if (miniWinners[a] && miniWinners[a] === miniWinners[b] && miniWinners[a] === miniWinners[c]) {
-      return [a, b, c]; // Return the winning boards
+      return [a, b, c]; // ✅ Return winning boards for animation
     }
   }
   return [];
 }
+
 
 function highlightWinningBoards(boards) {
   boards.forEach(board => {
     const mini = document.querySelectorAll(".mini-board")[board];
     mini.classList.add("rainbow-strobe");
   });
+}
+
+
+function reloadGame() {
+  location.reload();
+}
+
+
+function goToHome() {
+  window.location.href = "index.html"; // Adjust this path if needed
 }
 
 createGame();

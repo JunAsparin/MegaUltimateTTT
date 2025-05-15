@@ -227,25 +227,11 @@ function checkWinner(board) {
   return null;
 }
 
-function addReloadButton() {
-  const reloadButton = document.createElement("button");
-  reloadButton.textContent = "Reload Game";
-  reloadButton.classList.add("reload-button");
-  reloadButton.addEventListener("click", reloadGame);
-  document.body.appendChild(reloadButton);
-}
 
 function reloadGame() {
   location.reload();
 }
 
-function addHomeButton() {
-  const homeButton = document.createElement("button");
-  homeButton.textContent = "Home";
-  homeButton.classList.add("home-button");
-  homeButton.addEventListener("click", goToHome);
-  document.body.appendChild(homeButton);
-}
 
 function goToHome() {
   window.location.href = "index.html"; // Adjust this path if needed
