@@ -47,6 +47,19 @@ function drawParticles(time) {
 drawParticles();
 
 setTimeout(() => {
+  // Hide intro and show menu
   document.getElementById('intro-screen').style.display = 'none';
   document.getElementById('menu-screen').style.display = 'block';
+
+  // Play background sound
+  const spaceSound = document.getElementById('space-sound');
+  spaceSound.play().catch(err => {
+    console.warn('Autoplay prevented, waiting for user interaction...', err);
+    // Fallback: play on first click if autoplay blocked
+    const resumeAudio = () => {
+      spaceSound.play();
+      document.removeEventListener('click', resumeAudio);
+    };
+    document.addEventListener('click', resumeAudio);
+  });
 }, 5000);
