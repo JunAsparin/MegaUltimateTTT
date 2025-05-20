@@ -8,6 +8,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
+  <div id="intro-screen">
+    <canvas id="intro-canvas"></canvas>
+    <h1 id="intro-title">Jun's<br>Tic Tac Hub</h1>
+  </div>
+
   <!-- Game Mode Selection Menu -->
   <div id="menu-screen">
     <h1>Choose Your Game</h1>
@@ -17,8 +22,15 @@
       <button onclick="location.href='ultra.html'">Ultra Ultimate Tic-Tac-Toe</button>
     </div>
   </div>
+  
+
+  <audio id="space-sound" src="space-ambience.mp3" autoplay loop></audio>
+
+  </button>
+
 
   <canvas id="background-canvas"></canvas>
   <script src="background.js"></script>
+  <script src="intro.js"></script>
 </body>
 </html>

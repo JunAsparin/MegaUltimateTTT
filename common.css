@@ -117,8 +117,9 @@ h1 {
   z-index: -1;
   width: 100%;
   height: 100%;
-  background: black;
+  background: radial-gradient(ellipse at center, #000 0%, #020010 100%);
 }
+
 
 
 
@@ -228,3 +229,110 @@ button:hover, .button:hover {
   height: 100%;
   background: black;
 }
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px #ff00ff88, 0 0 20px #00ffff66;
+  }
+  50% {
+    box-shadow: 0 0 20px #ff00ffcc, 0 0 30px #00ffffff;
+  }
+}
+
+#menu-screen button:hover {
+  animation: glow 1s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.1; }
+  5% { opacity: 0.5; }
+  10% { opacity: 1; }
+  15% { opacity: 0.3; }
+  20% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+h1 {
+  animation: flicker 2s ease-in-out;
+}
+
+#menu-screen button {
+  transform-style: preserve-3d;
+  transition: transform 0.2s;
+}
+
+#menu-screen button:hover {
+  transform: perspective(600px) rotateX(5deg) rotateY(5deg);
+}
+
+button[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 255, 255, 0.9);
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+#intro-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, #000 30%, #111 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 9999;
+  animation: fadeOutIntro 1s ease forwards;
+  animation-delay: 4s;
+}
+
+#intro-canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+#intro-title {
+  position: relative;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3em;
+  color: cyan;
+  text-shadow: 0 0 20px #00f0ff, 0 0 40px #ff00ff;
+  opacity: 0;
+  animation: titlePulseIn 2s ease forwards;
+  z-index: 2;
+}
+
+@keyframes titlePulseIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(10px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+    filter: blur(0px);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOutIntro {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+

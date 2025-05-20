@@ -110,27 +110,6 @@ h1 {
   text-shadow: 0 0 10px black;
 }
 
-.ultimate-winner-mark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  font-size: 10vw;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 20;
-  color: white;
-  pointer-events: none;
-  text-shadow: 0 0 20px black;
-  border-radius: 8px;
-}
-
-
-
 .winner-X {
   background-color: red;
 }
@@ -139,20 +118,33 @@ h1 {
   background-color: blue;
 }
 
-/* Rainbow animation for full winning mini-boards ONLY */
+.winner {
+  animation: rainbow-strobe 1s infinite;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 8px #fff, 0 0 16px #ff0, 0 0 24px #f0f, 0 0 32px #0ff;
+}
+
 @keyframes rainbow-strobe {
-  0%   { background-color: red; }
-  14%  { background-color: orange; }
-  28%  { background-color: yellow; }
-  42%  { background-color: green; }
-  57%  { background-color: blue; }
-  71%  { background-color: indigo; }
-  85%  { background-color: violet; }
+  0% { background-color: red; }
+  10% { background-color: orange; }
+  20% { background-color: yellow; }
+  30% { background-color: green; }
+  40% { background-color: blue; }
+  50% { background-color: indigo; }
+  60% { background-color: violet; }
+  70% { background-color: blue; }
+  80% { background-color: green; }
+  90% { background-color: yellow; }
   100% { background-color: red; }
 }
 
-/* Apply only to full mini-board background */
-.mini-board.rainbow-strobe {
-  animation: rainbow-strobe 1s infinite;
+
+
+
+.rainbow-strobe {
+  animation: rainbowStrobe 1.5s infinite;
+  border-color: white;
 }
+
 

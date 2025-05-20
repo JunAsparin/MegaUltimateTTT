@@ -105,15 +105,11 @@ function markBoardWinner(m, winner) {
   winnerMark.textContent = winner;
   mini.appendChild(winnerMark);
 
-  mini.classList.add(`won-${winner}`);
+ // mini.classList.add(`won-${winner}`); ← REMOVE or comment this out
+  mini.classList.add("rainbow-strobe");
 }
 
-function markUltimateWinner(winner) {
-  const overlay = document.createElement("div");
-  overlay.classList.add("ultimate-winner-mark", `winner-${winner}`);
-  overlay.textContent = winner;
-  mainBoard.appendChild(overlay);
-}
+
 
 function disableAll() {
   document.querySelectorAll(".cell").forEach(cell =>
