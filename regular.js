@@ -1,5 +1,9 @@
 let currentPlayer = "X";
 let gameOver = false;
+let gameId = null;
+let isHost = false;
+let unsubscribe = null;
+
 
 const statusText = document.getElementById("status");
 const regularBoard = document.getElementById("main-board");
@@ -15,24 +19,21 @@ function createBoard() {
   }
 }
 
-function handleMove(cell, index) {
-  if (gameOver || cell.classList.contains("disabled")) return;
+async function handleMove(cell, index) {
+  if (gameOver || cell.classList.contains("disabled") || !gameId) return;
 
-  cell.textContent = currentPlayer;
-  cell.classList.add(currentPlayer.toLowerCase());
-  cell.classList.add("disabled");
+  const gameRef = db.collection("games").doc(gameId);
+  const doc = await gameRef.get();
+  const data = doc.data();
 
-  // Check for a win after the move
-  if (checkWinner()) {
-    gameOver = true;
-    statusText.textContent = `Player ${currentPlayer} wins!`;
-    addReloadButton(); // Show the reload button
-    addHomeButton();   // Show the home button
-  } else {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    statusText.innerHTML = `Player <span class="player-${currentPlayer.toLowerCase()}">${currentPlayer}</span>'s turn`;
-  }
+  if (data.board[index] !== "" || data.currentPlayer !== currentPlayer) return;
+
+  data.board[index] = currentPlayer;
+  data.currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+  await gameRef.update(data);
 }
+
 
 function checkWinner() {
   const cells = document.querySelectorAll(".cell");
@@ -76,4 +77,53 @@ function goToHome() {
 // Initialize the game
 createBoard();
 statusText.innerHTML = `Player <span class="player-${currentPlayer.toLowerCase()}">${currentPlayer}</span>'s turn`;
+
+async function hostGame() {
+  const gameRef = await db.collection("games").add({
+    board: Array(9).fill(""),
+    currentPlayer: "X",
+    gameOver: false
+  });
+
+  gameId = gameRef.id;
+  isHost = true;
+  alert(`Share this code: ${gameId}`);
+  listenForChanges();
+}
+
+async function joinGame(code) {
+  const gameRef = db.collection("games").doc(code);
+  const doc = await gameRef.get();
+
+  if (!doc.exists) {
+    alert("Game not found!");
+    return;
+  }
+
+  gameId = code;
+  isHost = false;
+  listenForChanges();
+}
+
+function listenForChanges() {
+  unsubscribe = db.collection("games").doc(gameId).onSnapshot((doc) => {
+    const data = doc.data();
+    updateBoard(data.board);
+    currentPlayer = data.currentPlayer;
+    gameOver = data.gameOver;
+    statusText.innerHTML = gameOver
+      ? `Game Over`
+      : `Player <span class="player-${currentPlayer.toLowerCase()}">${currentPlayer}</span>'s turn`;
+  });
+}
+
+function updateBoard(board) {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell, i) => {
+    cell.textContent = board[i];
+    cell.classList.add("disabled");
+    if (board[i] === "X") cell.classList.add("x");
+    if (board[i] === "O") cell.classList.add("o");
+  });
+}
 

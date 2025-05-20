@@ -20,8 +20,27 @@
   <div id="status">Player <span class="player-x">X</span>'s turn</div>
   <div id="main-board"></div>
   <canvas id="background-canvas"></canvas>
-  <script src="background.js"></script>
 
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <!-- Firebase Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDf81D4q5qzb-i4fA_-Up7PEIbPVSFL0vI",
+      authDomain: "tthub-bc00c.firebaseapp.com",
+      projectId: "tthub-bc00c",
+      storageBucket: "tthub-bc00c.firebasestorage.app",
+      messagingSenderId: "65041123769",
+      appId: "1:65041123769:web:5ce1ecaeb4c5dd498c4e68"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = firebase.database();
+  </script>
+
+  <script src="background.js"></script>
   <script src="regular.js"></script>
 </body>
 </html>
