@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Multiplayer Game</title>
+  <link rel="stylesheet" href="common.css" />
+</head>
+<body>
+  <h1>Multiplayer Tic Tac Toe</h1>
+  <div id="game-info">
+    <p id="status"></p>
+    <p id="code-display"></p>
+  </div>
+  <div id="main-board" class="board"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, onValue, set, get, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      databaseURL: "https://YOUR_PROJECT.firebaseio.com",
+      projectId: "YOUR_PROJECT",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const gameCode = localStorage.getItem("gameCode");
+    const player = localStorage.getItem("player");
+
+    const statusText = document.getElementById("status");
+    const codeDisplay = document.getElementById("code-display");
+    const boardContainer = document.getElementById("main-board");
+    codeDisplay.textContent = `Game Code: ${gameCode}`;
+
+    let currentPlayer = "X";
+    let gameOver = false;
+
+    function createBoard(cells = Array(9).fill("")) {
+      boardContainer.innerHTML = "";
+      cells.forEach((value, i) => {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.textContent = value;
+        if (value || gameOver || player !== currentPlayer) {
+          cell.classList.add("disabled");
+        }
+        cell.addEventListener("click", () => handleMove(i));
+        boardContainer.appendChild(cell);
+      });
+    }
+
+    function handleMove(index) {
+      if (gameOver || player !== currentPlayer) return;
+      const cellRef = ref(db, `games/${gameCode}`);
+      get(cellRef).then((snapshot) => {
+        const gameData = snapshot.val();
+        if (gameData.board[index] === "") {
+          gameData.board[index] = currentPlayer;
+          gameData.currentPlayer = currentPlayer === "X" ? "O" : "X";
+          update(cellRef, gameData);
+        }
+      });
+    }
+
+    function checkWinner(cells) {
+      const winPatterns = [
+        [0,1,2], [3,4,5], [6,7,8],
+        [0,3,6], [1,4,7], [2,5,8],
+        [0,4,8], [2,4,6]
+      ];
+      for (let [a, b, c] of winPatterns) {
+        if (cells[a] && cells[a] === cells[b] && cells[b] === cells[c]) {
+          return cells[a];
+        }
+      }
+      return null;
+    }
+
+    onValue(ref(db, `games/${gameCode}`), (snapshot) => {
+      const data = snapshot.val();
+      if (!data) return;
+
+      createBoard(data.board);
+      currentPlayer = data.currentPlayer;
+      const winner = checkWinner(data.board);
+      if (winner) {
+        gameOver = true;
+        statusText.textContent = `Player ${winner} wins!`;
+      } else if (!data.board.includes("")) {
+        gameOver = true;
+        statusText.textContent = "It's a draw!";
+      } else {
+        statusText.innerHTML = `Your symbol: <strong>${player}</strong><br>Current turn: ${currentPlayer}`;
+      }
+    });
+  </script>
+</body>
+</html>
